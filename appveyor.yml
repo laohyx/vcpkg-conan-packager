@@ -1,4 +1,5 @@
 build: false
+max_jobs: 32
 environment:
     PYTHON: "C:\\Python27"
     PYTHON_VERSION: "2.7.13"
