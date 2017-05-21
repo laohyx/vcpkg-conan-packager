@@ -1,23 +1,28 @@
-import shutil
-import tempfile
 import os
+import tempfile
+import shutil
+from init import *
+from log import logger
+from conans.client.runner import ConanRunner
 
-
-def process_port(port, tmp_folder, visual_version, build_type):
+def process_port(port, tmp_folder, visual_version, arch, build_type, is_link_dynamic):
     try:
-        print("Processing... %s:%s" % (port.source, port.version))
+        logger.info("Processing... %s:%s" % (port.source, port.version))
         tmp_folder = os.path.join(tmp_folder, port.name)     
         try:
             shutil.rmtree(tmp_folder)
         except Exception:
             pass   
         new_template_to(port.name, port.version, tmp_folder)
-        command = "cd %s && conan test_package -s compiler=\"Visual Studio\" -s compiler.version=%s -s build_type=%s" % (tmp_folder, visual_version, build_type)
-        print(command)
-        ret = os.system(command)
+        runner = ConanRunner()
+        command = 'conan test_package -s compiler="Visual Studio" ' \
+                  '-s compiler.version=%s -s arch=%s -s build_type=%s -o %s:shared=%s' \
+                  % (visual_version, arch, build_type, port.name, str(is_link_dynamic))
+        logger.info(command)
+        ret = runner(command, output=True, log_filepath=None, cwd=tmp_folder)
         return ret == 0
     except Exception as exc:
-        print("%s: Error '%s'" % (port.name, exc))
+        logger.error("Error in processing %s: Error '%s'" % (port.name, str(exc)))
         return False
 
 def temp_folder():
@@ -32,13 +37,10 @@ def replace_in_file(file_path, search, replace):
 
 
 def new_template_to(name, version, dest_dir):
-    shutil.copytree(os.path.abspath("./conanizer/template"), dest_dir)
-    shutil.copytree(os.path.abspath("./ports/%s" % name), os.path.join(dest_dir, "vcpkg/ports/%s" % name))
-    shutil.copytree(os.path.abspath("./scripts"), os.path.join(dest_dir, "vcpkg/scripts"))
-    shutil.copytree(os.path.abspath("./triplets"), os.path.join(dest_dir, "vcpkg/triplets"))
-    shutil.copy(os.path.abspath("./.vcpkg-root"), os.path.join(dest_dir, "vcpkg/.vcpkg-root"))
-    
-    replace_in_file(os.path.join(dest_dir, "conanfile.py"), "**NAME**", name)
-    replace_in_file(os.path.join(dest_dir, "conanfile.py"), "**VERSION**", version)
-    replace_in_file(os.path.join(dest_dir, "test_package/conanfile.py"), "**NAME**", name)
-    replace_in_file(os.path.join(dest_dir, "test_package/conanfile.py"), "**VERSION**", version)
+    shutil.copytree(os.path.abspath("./template"), dest_dir)
+
+    for file_path in ("conanfile.py", "test_package/conanfile.py"):
+        replace_in_file(os.path.join(dest_dir, file_path), "**NAME**", name)
+        replace_in_file(os.path.join(dest_dir, file_path), "**VERSION**", version)
+        replace_in_file(os.path.join(dest_dir, file_path), "**USER**", CONAN_USER)
+        replace_in_file(os.path.join(dest_dir, file_path), "**CHANNEL**", CONAN_CHANNEL)

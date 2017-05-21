@@ -31,8 +31,8 @@ if CONAN_LOGGING_FILE is not None:
 else:
     hdlr = StreamHandler(sys.stderr)
 
-formatter = MultiLineFormatter('\n######################################################### \n\n%(levelname)s: '
-                               '%(message)s \n\n#########################################################\n')
+formatter = MultiLineFormatter('##### %(levelname)s ##### '
+                               '%(message)s')
 hdlr.setFormatter(formatter)
 logger.addHandler(hdlr)
 logger.setLevel(CONAN_LOGGING_LEVEL)
