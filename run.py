@@ -1,4 +1,5 @@
 import os
+import sys
 from init import *
 from log import logger
 from model import Port
@@ -59,3 +60,5 @@ if __name__ == "__main__":
 
     print("UPLOADED: %s" % str(to_upload))
     print("FAILED TO BUILD: %s" % str(failed))
+    if len(failed) > 0:
+        sys.exit(1)
