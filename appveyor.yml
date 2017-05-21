@@ -4,19 +4,6 @@ environment:
     PYTHON: "C:\\Python27"
     PYTHON_VERSION: "2.7.13"
     PYTHON_ARCH: "64"
-    CONAN_TOTAL_PAGES: 10
-    
-    matrix:
-        - CONAN_CURRENT_PAGE: 0
-        - CONAN_CURRENT_PAGE: 1
-        - CONAN_CURRENT_PAGE: 2
-        - CONAN_CURRENT_PAGE: 3
-        - CONAN_CURRENT_PAGE: 4
-        - CONAN_CURRENT_PAGE: 5
-        - CONAN_CURRENT_PAGE: 6
-        - CONAN_CURRENT_PAGE: 7
-        - CONAN_CURRENT_PAGE: 8
-        - CONAN_CURRENT_PAGE: 9
 install:
   # Workaround for CMake not wanting sh.exe on PATH for MinGW
   - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
