@@ -12,7 +12,7 @@ def process_ports(default_ports=None):
     ports_dir = VCPKG_PORTS_FOLDER
     ports = default_ports or [port for port in os.listdir(ports_dir) if os.path.isdir(os.path.join(ports_dir, port))]
     num_pages = int(getenv("CONAN_TOTAL_PAGES", 10))
-    current_page = int(getenv("CONAN_CURRENT_PAGE", 1))
+    current_page = int(getenv("CONAN_CURRENT_PAGE", 0))
     
     tmp_folder = temp_folder()
 
@@ -30,7 +30,7 @@ def process_ports(default_ports=None):
         for visual_version in visual_versions:
             for is_link_dynamic in [True, False]:
                 for arch in ['x86', 'x86_64']:
-                    if counter % num_pages == (current_page - 1):
+                    if counter % num_pages == current_page:
                         for build_type in ["Debug", "Release"]:
                             logger.info("-------------------------- PROCESSING %s, Visual %s, %s--------------------------" % (port_name, visual_version, build_type))
                             port = Port(port_name, os.path.join(ports_dir, port_name))
