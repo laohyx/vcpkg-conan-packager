@@ -1,3 +1,6 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/9twefuchvfv27nfd?svg=true)](https://ci.appveyor.com/project/laohyx/vcpkg-conan-packager)
+
+
 # Vcpkg Conan packager
 
 This project is forked from [lasote/vcpkg](https://github.com/lasote/vcpkg). But different from lasote's, this packager
@@ -29,8 +32,8 @@ set CONAN_PASSWORD=password
 In `run.py`
 
 ```python
-    to_upload, failed = process_ports(['boost', 'protobuf'])
-    upload_packages(to_upload)
+to_upload, failed = process_ports(['boost', 'protobuf'])
+upload_packages(to_upload)
 ```
 
 
