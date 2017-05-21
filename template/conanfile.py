@@ -35,7 +35,7 @@ class WrapperVcpkgConan(ConanFile):
 
         target = "{}:{}".format(self.name, self._get_triplet())
         self.run("vcpkg.exe remove {}".format(target), cwd=self.VCPKG_ROOT_FOLDER)
-        self.run("vcpkg.exe build {}".format(target), cwd=self.VCPKG_ROOT_FOLDER)
+        self.run("vcpkg.exe install {}".format(target), cwd=self.VCPKG_ROOT_FOLDER)
 
     def _get_triplet(self):
         tmp = {"x86_64": "x64-windows",

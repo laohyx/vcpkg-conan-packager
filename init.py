@@ -14,7 +14,5 @@ folders = {
 for key, value in folders.iteritems():
     assert os.path.isdir(value), "Cannot find vcpkg {} folder: {}".format(key, value)
 
-os.putenv("VCPKG_ROOT_FOLDER", VCPKG_ROOT_FOLDER)
-
 CONAN_USER = os.getenv("CONAN_USER", "laohyx")
 CONAN_CHANNEL = os.getenv("CONAN_CHANNEL", "vcpkg")
