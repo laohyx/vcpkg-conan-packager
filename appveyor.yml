@@ -1,21 +1,21 @@
-build: false
-max_jobs: 32
-environment:
-    PYTHON: "C:\\Python27"
-    PYTHON_VERSION: "2.7.13"
-    PYTHON_ARCH: "64"
-install:
-  # Workaround for CMake not wanting sh.exe on PATH for MinGW
-  - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
-  - set PATH=%PATH%;%PYTHON%/Scripts/
-  - pip.exe install conan
-  - conan user # It creates the conan data directory
-  - git clone --depth=1 https://github.com/Microsoft/vcpkg.git
-  - cd vcpkg && bootstrap-vcpkg.bat && cd ..
-  - set VCPKG_ROOT_FOLDER=%cd%\vcpkg
-  - echo %VCPKG_ROOT_FOLDER%
-  - set CONAN_USER=laohyx
-  - set CONAN_CHANNEL=vcpkg
-
-test_script:
-  - python run.py
+#build: false
+#max_jobs: 32
+#environment:
+#    PYTHON: "C:\\Python27"
+#    PYTHON_VERSION: "2.7.13"
+#    PYTHON_ARCH: "64"
+#install:
+#  # Workaround for CMake not wanting sh.exe on PATH for MinGW
+#  - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
+#  - set PATH=%PATH%;%PYTHON%/Scripts/
+#  - pip.exe install conan
+#  - conan user # It creates the conan data directory
+#  - git clone --depth=1 https://github.com/Microsoft/vcpkg.git
+#  - cd vcpkg && bootstrap-vcpkg.bat && cd ..
+#  - set VCPKG_ROOT_FOLDER=%cd%\vcpkg
+#  - echo %VCPKG_ROOT_FOLDER%
+#  - set CONAN_USER=laohyx
+#  - set CONAN_CHANNEL=vcpkg
+#
+#test_script:
+#  - python run.py

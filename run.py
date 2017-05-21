@@ -11,7 +11,7 @@ os.chdir(os.path.dirname(os.path.realpath(__file__)))
 def process_ports(default_ports=None):
     ports_dir = VCPKG_PORTS_FOLDER
     ports = default_ports or [port for port in os.listdir(ports_dir) if os.path.isdir(os.path.join(ports_dir, port))]
-    num_pages = int(getenv("CONAN_TOTAL_PAGES", 10))
+    num_pages = int(getenv("CONAN_TOTAL_PAGES", 1))
     current_page = int(getenv("CONAN_CURRENT_PAGE", 0))
     
     tmp_folder = temp_folder()
