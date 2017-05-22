@@ -54,7 +54,7 @@ def upload_packages(to_upload):
         
 
 if __name__ == "__main__":
-    to_upload, failed = process_ports(["zlib", "protobuf"])
+    to_upload, failed = process_ports(["zlib", "protobuf", "boost", "sqlite3", "gtest"])
     # to_upload, failed = process_ports()
     upload_packages(to_upload)
 

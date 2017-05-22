@@ -34,7 +34,7 @@ class WrapperVcpkgConan(ConanFile):
         assert os.path.isfile(VCPKG_EXE), "Cannot find vcpkg.exe: {}".format(VCPKG_EXE)
 
         target = "{}:{}".format(self.name, self._get_triplet())
-        self.run("vcpkg.exe remove {}".format(target), cwd=self.VCPKG_ROOT_FOLDER)
+        # self.run("vcpkg.exe remove {}".format(target), cwd=self.VCPKG_ROOT_FOLDER)
         self.run("vcpkg.exe install {}".format(target), cwd=self.VCPKG_ROOT_FOLDER)
 
     def _get_triplet(self):
@@ -47,7 +47,7 @@ class WrapperVcpkgConan(ConanFile):
 
     def package(self):
         package_folder = os.path.join(self.VCPKG_ROOT_FOLDER, "/packages/%s_%s" % (self.name, self._get_triplet()))
-
+        print("packaging...", package_folder)
         self.copy("*", src=package_folder + "/include", dst="include", keep_path=True)
 
         if self.settings.build_type == "Debug":
